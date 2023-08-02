@@ -1,0 +1,42 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: #d6dadc;
+}
+
+$theme1-primary: #0000ff;
+$theme1-secondary: #000066;
+
+$theme1-primary: #0000ff;
+$theme1-secondary: #000066;
+
+.space{
+  clear: both;
+  height: 8px;
+}
+
+.space-sm{
+  clear: both;
+  height: 4px;
+}
+
+.space-xs{
+  clear: both;
+  height: 2px;
+}
+
+.space-md{
+  clear: both;
+  height: 12px;
+}
+
+.space-lg{
+  clear: both;
+  height: 16px;
+}
+
+.space-xl{
+  clear: both;
+  height: 22px;
+}

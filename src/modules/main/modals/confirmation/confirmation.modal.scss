@@ -1,0 +1,25 @@
+.confirmation-modal {
+  .MuiDialog-container {
+    align-items: flex-start;
+  }
+
+  .MuiPaper-root {
+    min-width: 500px;
+  }
+
+  .modal-form {
+    padding-top: 10px;
+    .MuiFormControl-root {
+      width: 100%;
+    }
+  }
+
+  .actions-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    .cancel-wrapper {
+      margin-right: 10px;
+    }
+  }
+}

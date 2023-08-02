@@ -1,0 +1,29 @@
+.todo-list-component {
+  .todo-list-wrapper {
+    display: flex;
+    align-items: center;
+    margin-block: 7px;
+    padding: 10px;
+    background: #e4e1e1;
+
+    .todo-description {
+      flex: 1;
+      text-align: left;
+      overflow-wrap: anywhere;
+
+      .todo-date {
+        font-size: 11px;
+      }
+    }
+
+    .todo-completed {
+      color: #b6b6b6;
+      text-decoration: line-through;
+    }
+
+    .todo-actions {
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+}

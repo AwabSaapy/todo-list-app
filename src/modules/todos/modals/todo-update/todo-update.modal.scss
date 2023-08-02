@@ -1,0 +1,16 @@
+.todo-update-modal {
+  .MuiDialog-container {
+    align-items: flex-start;
+  }
+
+  .MuiPaper-root {
+    min-width: 500px;
+  }
+
+  .modal-form {
+    padding-top: 10px;
+    .MuiFormControl-root {
+      width: 100%;
+    }
+  }
+}

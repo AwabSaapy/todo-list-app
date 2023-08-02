@@ -1,0 +1,16 @@
+.todos-container {
+  width: 500px;
+  background: #949ea4;
+  padding: 2rem;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto;
+
+  .completed-todos-message {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    color: #2e7d32;
+    font-weight: bold;
+  }
+}

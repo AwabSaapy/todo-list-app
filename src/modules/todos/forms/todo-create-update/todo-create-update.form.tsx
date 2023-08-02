@@ -39,7 +39,7 @@ const TodoCreateUpdateForm: FC<TodoCreateFormProps> = (props) => {
 
     const onButtonClick = () => {
         if (!todo.description) {
-            errorSet("You can't add an empty todo!");
+            errorSet("The todo name can't be empty");
         }
         else {
             if (updatedTodo) {

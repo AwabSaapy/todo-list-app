@@ -53,6 +53,10 @@ const TodosContainer: FC<TodosContainerProps> = () => {
     const onDeleteTodo = (deletedTodo: ITodo) => {
         const newTodos = todos.filter(todo => todo.id !== deletedTodo.id);
         todosSet(newTodos);
+
+        if (!newTodos.length) {
+            appliedFilterSet(TodoFilterType.ALL_TODOS);
+        }
     }
 
     const onUpdateTodo = (updatedTodo: ITodo) => {
@@ -71,24 +75,19 @@ const TodosContainer: FC<TodosContainerProps> = () => {
             <TodoUpdateModal onChange={onTodoUpdateModalChange} />
             <TodoCreateUpdateForm onChange={onTodoCreateFormChange} />
 
-            <div className="space-xl" />
-
-            {
-                todos && todos.length > 1 && (
-                    <>
-                        <TodoFilterForm onChange={onTodoFilterFormChange} />
-                        <div className="space-md" />
-                    </>
-                )
-            }
-
             {
                 todos?.length ? (
-                    <TodoList todos={todos} appliedFilter={appliedFilter} onChange={onTodoListChange} />
+                    <>
+                        <div className="space-xl" />
+                        <TodoFilterForm onChange={onTodoFilterFormChange} />
+                        <div className="space-md" />
+                        <TodoList todos={todos} appliedFilter={appliedFilter} onChange={onTodoListChange} />
+                    </>
                 ) : (
-                    <div className="no-todos-text">
-                        There are no todos right now!
-                    </div>
+                    <>
+                        <div className="space-xl" />
+                        <span> There are no todos right now! </span>
+                    </>
                 )
             }
 

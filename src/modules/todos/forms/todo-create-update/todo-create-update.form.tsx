@@ -58,7 +58,7 @@ const TodoCreateUpdateForm: FC<TodoCreateFormProps> = (props) => {
                 const newTodo = {
                     ...todo,
                     id: uuidv4(),
-                    date: new Date(),
+                    created_at: new Date(),
                 }
 
                 onChange({

@@ -50,11 +50,21 @@ const TodoList: FC<TodoListProps> = (props) => {
     }
 
     const onDeleteTodoClick = (todo: ITodo) => {
-        ConfirmationModalApi.show(true, {
-            data: todo,
-            title: "Delete Todo",
-            description: "Are you sure you want to delete this todo?",
-        });
+        if (todo.completed) {
+            onChange({
+                type: "DELETE",
+                payload: {
+                    todo: todo,
+                }
+            })
+        }
+        else {
+            ConfirmationModalApi.show(true, {
+                data: todo,
+                title: "Delete Uncompleted Todo",
+                description: "Are you sure you want to delete this uncompleted todo?",
+            });
+        }
     }
 
     const onDeleteConfirmationModalChange = (event: IConfirmationModalEvent) => {

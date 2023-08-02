@@ -13,4 +13,13 @@
     color: #2e7d32;
     font-weight: bold;
   }
+
+  .todos-error {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    color: #c71b1b;
+    font-size: 15px;
+    font-weight: 500;
+  }
 }

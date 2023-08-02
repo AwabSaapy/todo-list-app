@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {ITodo, TodoFilterType} from "../../types/todo.types";
 import TodoList, {ITodoListEvent} from "../../components/todo-list/todo-list.component";
 import TodoCreateUpdateForm, {ITodoCreateUpdateFormEvent} from "../../forms/todo-create-update/todo-create-update.form";
@@ -16,6 +16,7 @@ type TodosContainerProps = {
 const TodosContainer: FC<TodosContainerProps> = () => {
     const [todos, todosSet] = useLocalStorage<ITodo[]>("todos", []);
     const [appliedFilter, appliedFilterSet] = useState<TodoFilterType>(TodoFilterType.ALL_TODOS);
+    const [error, errorSet] = useState<string>("");
 
     const completedTodos = getTheCompletedTodos(todos);
 
@@ -51,12 +52,20 @@ const TodosContainer: FC<TodosContainerProps> = () => {
     }
 
     const onDeleteTodo = (deletedTodo: ITodo) => {
-        const newTodos = todos.filter(todo => todo.id !== deletedTodo.id);
-        todosSet(newTodos);
+        const isTodoExist = todos.find(todo => todo.id === deletedTodo.id);
 
-        if (!newTodos.length) {
-            appliedFilterSet(TodoFilterType.ALL_TODOS);
+        if (!isTodoExist) {
+            errorSet("Invalid Todo!")
         }
+        else {
+            const newTodos = todos.filter(todo => todo.id !== deletedTodo.id);
+            todosSet(newTodos);
+
+            if (!newTodos.length) {
+                appliedFilterSet(TodoFilterType.ALL_TODOS);
+            }
+        }
+
     }
 
     const onUpdateTodo = (updatedTodo: ITodo) => {
@@ -66,9 +75,24 @@ const TodosContainer: FC<TodosContainerProps> = () => {
     }
 
     const onToggleCompleteTodo = (toggledTodo: ITodo) => {
-        const newTodos = todos.map(todo => todo.id === toggledTodo.id ? { ...todo, completed: !todo.completed} : todo);
-        todosSet(newTodos);
+        const isTodoExist = todos.find(todo => todo.id === toggledTodo.id);
+
+        if (!isTodoExist) {
+            errorSet("Invalid Todo!")
+        }
+        else {
+            const newTodos = todos.map(todo => todo.id === toggledTodo.id ? { ...todo, completed: !todo.completed} : todo);
+            todosSet(newTodos);
+        }
     }
+
+    useEffect(() => {
+        if (error) {
+            setTimeout(function() {
+                errorSet("")
+            }, 3000);
+        }
+    }, [error]);
 
     return (
         <div className="todos-container">
@@ -79,7 +103,7 @@ const TodosContainer: FC<TodosContainerProps> = () => {
                 todos?.length ? (
                     <>
                         <div className="space-xl" />
-                        <TodoFilterForm onChange={onTodoFilterFormChange} />
+                        <TodoFilterForm appliedFilter={appliedFilter} onChange={onTodoFilterFormChange} />
                         <div className="space-md" />
                         <TodoList todos={todos} appliedFilter={appliedFilter} onChange={onTodoListChange} />
                     </>
@@ -91,16 +115,14 @@ const TodosContainer: FC<TodosContainerProps> = () => {
                 )
             }
 
+            {error && <div className="todos-error"> {error} </div>}
+
             {
-                (appliedFilter === TodoFilterType.ALL_TODOS && todos?.length) ? (
-                    completedTodos.length === todos.length ? (
-                        <div className="completed-todos-message"> Congratulations! You did all your todos. </div>
-                    ) : (
-                        <div className="completed-todos-message">
-                            <Chip label={`Completed: ${completedTodos.length}/${todos.length}`} color="#2e7d32" />
-                        </div>
-                    )
-                ) : null
+                (appliedFilter === TodoFilterType.ALL_TODOS && todos?.length > 0) && (
+                    <div className="completed-todos-message">
+                        <Chip label={`Completed: ${completedTodos.length}/${todos.length}`} color="#2e7d32" />
+                    </div>
+                )
             }
         </div>
     )

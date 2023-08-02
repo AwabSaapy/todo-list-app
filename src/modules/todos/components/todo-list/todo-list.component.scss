@@ -1,4 +1,23 @@
 .todo-list-component {
+  overflow-y: auto;
+  max-height: 350px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background: #4A4A4A;
+  }
+
   .todo-list-wrapper {
     display: flex;
     align-items: center;

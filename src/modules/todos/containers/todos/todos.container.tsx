@@ -88,9 +88,11 @@ const TodosContainer: FC<TodosContainerProps> = () => {
 
     useEffect(() => {
         if (error) {
-            setTimeout(function() {
+            const timer = setTimeout(function() {
                 errorSet("")
             }, 3000);
+
+            return () => clearTimeout(timer);
         }
     }, [error]);
 
